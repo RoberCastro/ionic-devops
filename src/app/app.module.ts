@@ -29,11 +29,16 @@ const providers:Array<any> = [
   TodosService
 ];
 
+const ionicAppConfig:Object = {
+  tabsPlacement: 'top',
+  mode: 'md'
+};
+
 @NgModule({
   declarations: [...pages],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, ionicAppConfig),
     HttpModule,
     EnvironmentsModule
   ],
