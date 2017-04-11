@@ -1,10 +1,10 @@
 /**
- * @Author: Nicolas Fazio <webmaster-fazio>
- * @Date:   08-04-2017
- * @Email:  contact@nicolasfazio.ch
- * @Last modified by:   webmaster-fazio
- * @Last modified time: 09-04-2017
- */
+* @Author: Nicolas Fazio <webmaster-fazio>
+* @Date:   08-04-2017
+* @Email:  contact@nicolasfazio.ch
+* @Last modified by:   webmaster-fazio
+* @Last modified time: 09-04-2017
+*/
 
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
@@ -13,13 +13,16 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription.js'
 
 import { TodosService, ITodo } from '../../providers/todos-service/todos-service';
+import { NotifMock } from '../../providers/notifications-service/notif-mock';
+import { INotifItem } from "../../providers/notifications-service/notif-model";
+
 
 /**
- * Generated class for the Items page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+* Generated class for the Items page.
+*
+* See http://ionicframework.com/docs/components/#navigation for more info
+* on Ionic pages and navigation.
+*/
 @IonicPage({
   name: 'items'
 })
@@ -34,7 +37,8 @@ export class Items {
 
   constructor(
     public navCtrl: NavController,
-    public todoService: TodosService
+    public todoService: TodosService,
+    public notifMock: NotifMock
   ) {
     this.todos = this.todoService.todos; // subscribe to entire collection
     this.todoService.loadAll()
@@ -109,6 +113,14 @@ export class Items {
     // disable alert and use Native Plugin
     // with the custom provider localNotifications
     // to have debug mode in browser
-    alert(`Expired: ${todo.description}`)
+    //alert(`Expired: ${todo.description}`)
+    let newDate = new Date();
+    newDate.setMinutes(newDate.getMinutes() + 1);
+    this.notifMock.schedule({
+      id:1,
+      text: todo.description,
+      data: { secret: 'toto fazio'},
+      at: newDate
+    })
   }
 }
