@@ -5,11 +5,14 @@
  * @Last modified by:   webmaster-fazio
  * @Last modified time: 08-04-2017
  */
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http , Headers } from '@angular/http';
 
 import {Observable} from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import { EnvVariables } from '../../app/environment/environment.token';
+import { IEnvironment } from "../../../environments/env-model";
 
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -23,7 +26,7 @@ export interface ITodo {
   expire?: boolean;
 }
 
-export const TODOS_URL = 'http://localhost:8080/todos'
+export const TODOS_URL = '/todos'
 /*
   Generated class for the TodosService provider.
 
@@ -39,7 +42,7 @@ export class TodosService {
     todos: ITodo[]
   };
 
-  constructor(public http: Http) {
+  constructor(public http: Http, @Inject(EnvVariables) public envVariables:IEnvironment) {
     this._dataStore = { todos: [] };
     this._todos = <BehaviorSubject<ITodo[]>>new BehaviorSubject([]);
     this.todos = this._todos.asObservable();
@@ -47,7 +50,7 @@ export class TodosService {
 
   // Get all todos
   loadAll():void {
-    this.http.get(`${TODOS_URL}`)
+    this.http.get(`${this.envVariables.apiEndpoint+TODOS_URL}`)
              .map(response => response.json())
              .subscribe(
                 data => {
@@ -62,7 +65,7 @@ export class TodosService {
 
   // Get all todo by ID
   load(id: number | string):void {
-    this.http.get(`${TODOS_URL}/${id}`)
+    this.http.get(`${this.envVariables.apiEndpoint+TODOS_URL}/${id}`)
              .map(response => response.json())
              .subscribe(
                  data => {
@@ -89,7 +92,7 @@ export class TodosService {
     let body:string = JSON.stringify({description: todo});
     let headers:Headers = new Headers({'Content-Type': 'application/json'});
     // post request to server
-    this.http.post(`${TODOS_URL}`, body, {headers: headers})
+    this.http.post(`${this.envVariables.apiEndpoint+TODOS_URL}`, body, {headers: headers})
              .map(response => response.json()) // return response as json
              .subscribe(
                 data => {
@@ -104,7 +107,7 @@ export class TodosService {
 
   // update todo datas
   update(todo: ITodo):Promise<ITodo|string> {
-    let url:string = `${TODOS_URL}/${todo._id}`; //see mdn.io/templateliterals
+    let url:string = `${this.envVariables.apiEndpoint+TODOS_URL}/${todo._id}`; //see mdn.io/templateliterals
     let body:string = JSON.stringify(todo)
     let headers:Headers = new Headers({'Content-Type': 'application/json'});
 
@@ -143,7 +146,7 @@ export class TodosService {
 
   // delete todo by ID
   delete(todoId: string|number):void {
-    let url:string = `${TODOS_URL}/${todoId}`;
+    let url:string = `${this.envVariables.apiEndpoint+TODOS_URL}/${todoId}`;
     let headers:Headers = new Headers({'Content-Type': 'application/json'});
 
     this.http.delete(url, headers)
