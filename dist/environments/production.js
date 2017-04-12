@@ -1,0 +1,11 @@
+"use strict";
+exports.prodVariables = {
+    environmentName: 'Production Environment',
+    ionicEnvName: 'prod',
+    //essai git dev
+    // Front-end
+    apiEndpoint: 'http://localhost:8080',
+    // Back-end
+    dbHost: 'mongodb://robercastro:robercastro@ds135820.mlab.com:35820',
+    dbName: 'rob_ionic_devops'
+};
