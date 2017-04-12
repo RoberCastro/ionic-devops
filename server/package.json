@@ -30,6 +30,6 @@
   "engines": {
     "node": "~7.0.0"
   },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "ROB: ionic-devops-front: An Ionic project with NodeJS Simple REST TS"
 }
