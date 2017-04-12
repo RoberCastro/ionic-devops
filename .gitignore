@@ -17,7 +17,8 @@ npm-debug.log*
 .tmp/
 .versions/
 coverage/
-dist/
+
+# dist/
 node_modules/
 tmp/
 temp/
@@ -50,6 +51,6 @@ UserInterfaceState.xcuserstate
 *-config.*
 config.*
 
-#On les comment pour l'objet du cours pour qu'on les aie pour etudier 
+#On les comment pour l'objet du cours pour qu'on les aie pour etudier
 #environments/##/#.js
 #production.#
