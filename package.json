@@ -17,7 +17,7 @@
     "deploy:server": "tsc server.ts --outDir ./dist && cp ./server/package.json ./dist/package.json && cp ./server/.gitignore ./dist/.gitignore && git add --all && git commit -m 'upd version - `date`'  && git subtree split -P dist -b heroku-serve && git push heroku heroku-serve:master --force && git branch -D heroku-serve && heroku ps:scale web=1 && heroku open",
     "mongod": "mongod",
     "test": "karma start ./test-config/karma.conf.js",
-    "start:prod": "npm run server & ionic serve --prod"
+    "start:prod": "ionic serve --prod"
 
   },
   "dependencies": {
