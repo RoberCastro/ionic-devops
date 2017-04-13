@@ -23,4 +23,5 @@ export function environmentFactory():IEnvironment {
     }
   ]
 })
+
 export class EnvironmentsModule {}
