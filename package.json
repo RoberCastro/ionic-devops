@@ -13,6 +13,7 @@
     "server": "tsc server.ts --outDir ./dist && NODE_ENV=prod node ./dist/server.js ",
     "server:dev": "tsc server.ts -w --outDir ./dist & nodemon ./dist/server.js --dev  --ignore src/ --ignore www/ --ignore .tmp/",
     "deploy:server": "tsc server.ts --outDir ./dist && cp ./server/package.json ./dist/package.json && cp ./server/.gitignore ./dist/.gitignore && git add --all && git commit -m 'upd version - `date`'  && git subtree split -P dist -b heroku-serve && git push heroku heroku-serve:master --force && git branch -D heroku-serve && heroku ps:scale web=1 && heroku open",
+    "deploy:client": "gulp deploy",
     "mongod": "mongod",
     "test": "karma start ./test-config/karma.conf.js",
     "start:prod": "ionic serve --prod"
@@ -98,6 +99,6 @@
   "engines": {
     "node": "~7.0.0"
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "ROB: ionic-devops-front: An Ionic project with NodeJS Simple REST TS"
 }
